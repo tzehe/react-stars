@@ -25,15 +25,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var parentStyles = {
-  overflow: 'hidden',
+  //   overflow: 'hidden',
   position: 'relative'
 };
 
 var defaultStyles = {
   position: 'relative',
-  overflow: 'hidden',
+  //   overflow: 'hidden',
+  paddingLeft: '12px',
   cursor: 'pointer',
-  display: 'block',
+  display: 'inline-block',
   float: 'left'
 };
 
@@ -74,7 +75,6 @@ var ReactStars = function (_Component) {
       half: props.half,
       edit: props.edit
     };
-
     return _this;
   }
 
@@ -94,7 +94,16 @@ var ReactStars = function (_Component) {
         halfStar: {
           at: Math.floor(props.value),
           hidden: this.state.config.half && props.value % 1 < 0.5
-        }
+        },
+        config: _extends({}, this.state.config, {
+          count: props.count,
+          size: props.size,
+          char: props.char,
+          color1: props.color1,
+          color2: props.color2,
+          half: props.half,
+          edit: props.edit
+        })
       });
     }
   }, {
@@ -188,7 +197,7 @@ var ReactStars = function (_Component) {
         var isAtHalf = this.moreThanHalf(event, config.size);
         halfStar.hidden = isAtHalf;
         if (isAtHalf) index = index + 1;
-        value = isAtHalf ? index : index + .5;
+        value = isAtHalf ? index : index + 0.5;
         halfStar.at = index;
       } else {
         value = index = index + 1;
@@ -206,9 +215,11 @@ var ReactStars = function (_Component) {
           config = _state4.config,
           uniqueness = _state4.uniqueness;
 
-      return _react2.default.createElement('style', { dangerouslySetInnerHTML: {
+      return _react2.default.createElement('style', {
+        dangerouslySetInnerHTML: {
           __html: getHalfStarStyles(config.color2, uniqueness)
-        } });
+        }
+      });
     }
   }, {
     key: 'renderStars',
@@ -248,7 +259,8 @@ var ReactStars = function (_Component) {
             onMouseOver: _this2.mouseOver.bind(_this2),
             onMouseMove: _this2.mouseOver.bind(_this2),
             onMouseLeave: _this2.mouseLeave.bind(_this2),
-            onClick: _this2.clicked.bind(_this2) },
+            onClick: _this2.clicked.bind(_this2)
+          },
           char
         );
       });
